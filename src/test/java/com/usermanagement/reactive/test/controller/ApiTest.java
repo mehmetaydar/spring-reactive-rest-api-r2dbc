@@ -83,7 +83,7 @@ public class ApiTest {
   public void getAllUsersValidateCount() {
     webTestClient
         .get()
-        .uri("/users")
+        .uri("/v1/users")
         .exchange()
         .expectStatus()
         .isOk()
@@ -106,7 +106,7 @@ public class ApiTest {
     Flux<User> userFlux =
         webTestClient
             .get()
-            .uri("/users")
+            .uri("/v1/users")
             .exchange()
             .expectStatus()
             .isOk()
@@ -121,7 +121,7 @@ public class ApiTest {
   public void getUserById() {
     webTestClient
         .get()
-        .uri("/users".concat("/{userId}"), "1")
+        .uri("/v1/users".concat("/{userId}"), "1")
         .exchange()
         .expectStatus()
         .isOk()
@@ -133,7 +133,7 @@ public class ApiTest {
   public void getUserById_NotFound() {
     webTestClient
         .get()
-        .uri("/users".concat("/{userId}"), "6000")
+        .uri("/v1/users".concat("/{userId}"), "6000")
         .exchange()
         .expectStatus()
         .isNotFound();
@@ -144,7 +144,7 @@ public class ApiTest {
     User user = new User(null, "Aras Cruise", 45, 555555, "arascruise@company.com");
     webTestClient
         .post()
-        .uri("/users")
+        .uri("/v1/users")
         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .body(Mono.just(user), User.class)
         .exchange()
@@ -163,7 +163,7 @@ public class ApiTest {
   public void deleteUser() {
     webTestClient
         .delete()
-        .uri("/users".concat("/{userId}"), "1")
+        .uri("/v1/users".concat("/{userId}"), "1")
         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .exchange()
         .expectStatus()
@@ -180,7 +180,7 @@ public class ApiTest {
 
     webTestClient
         .put()
-        .uri("/users".concat("/{userId}"), userId)
+        .uri("/v1/users".concat("/{userId}"), userId)
         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .body(Mono.just(user), User.class)
@@ -200,7 +200,7 @@ public class ApiTest {
     user.setName(newName);
     webTestClient
         .put()
-        .uri("/users".concat("/{userId}"), userId)
+        .uri("/v1/users".concat("/{userId}"), userId)
         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .body(Mono.just(user), User.class)
@@ -220,7 +220,7 @@ public class ApiTest {
     user.setEmail(newEmail);
     webTestClient
         .put()
-        .uri("/users".concat("/{userId}"), "1")
+        .uri("/v1/users".concat("/{userId}"), "1")
         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .body(Mono.just(user), User.class)
@@ -240,7 +240,7 @@ public class ApiTest {
     user.setEmail(newEmail);
     webTestClient
         .put()
-        .uri("/users".concat("/{userId}"), userId)
+        .uri("/v1/users".concat("/{userId}"), userId)
         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .body(Mono.just(user), User.class)
@@ -260,7 +260,7 @@ public class ApiTest {
     user.setEmail(newEmail);
     webTestClient
         .put()
-        .uri("/users".concat("/{userId}"), userId)
+        .uri("/v1/users".concat("/{userId}"), userId)
         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .body(Mono.just(user), User.class)
@@ -275,7 +275,7 @@ public class ApiTest {
     User user = new User(null, "Jordan Sun", 31, newsalary, "jordansun@company.com");
     webTestClient
         .put()
-        .uri("/users".concat("/{userId}"), "6500")
+        .uri("/v1/users".concat("/{userId}"), "6500")
         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .body(Mono.just(user), User.class)
@@ -288,7 +288,7 @@ public class ApiTest {
   public void testPaginationAndSort() {
     webTestClient
         .get()
-        .uri("/users/all?page=1&size=5&sort=id;ASC,name;DESC")
+        .uri("/v1/users/all?page=1&size=5&sort=id;ASC,name;DESC")
         .exchange()
         .expectStatus()
         .isOk()
@@ -313,7 +313,7 @@ public class ApiTest {
   public void searchByEmailExactMatch() {
     webTestClient
         .get()
-        .uri("/users/search?email=Satoshi@company.com")
+        .uri("/v1/users/search?email=Satoshi@company.com")
         .exchange()
         .expectStatus()
         .isOk()
@@ -325,7 +325,7 @@ public class ApiTest {
   public void searchByNamePrefix() {
     webTestClient
         .get()
-        .uri("/users/search?name=satosh")
+        .uri("/v1/users/search?name=Satoshi   N")
         .exchange()
         .expectStatus()
         .isOk()
@@ -337,7 +337,7 @@ public class ApiTest {
   public void searchByEmailOrName() {
     webTestClient
         .get()
-        .uri("/users/search?email=Satoshi@company.com&name=Lebr")
+        .uri("/v1/users/search?email=Satoshi@company.com&name=Lebr")
         .exchange()
         .expectStatus()
         .isOk()

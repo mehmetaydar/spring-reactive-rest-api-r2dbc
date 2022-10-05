@@ -10,6 +10,7 @@ import com.usermanagement.reactive.repository.DepartmentRepository;
 import com.usermanagement.reactive.repository.UserPaginationRepository;
 import com.usermanagement.reactive.repository.UserRepository;
 import com.usermanagement.reactive.repository.UserSearchRepository;
+import com.usermanagement.reactive.utilities.TextSanitizer;
 import java.util.List;
 import java.util.function.BiFunction;
 import lombok.extern.slf4j.Slf4j;
@@ -116,8 +117,8 @@ public class UserService {
 
   public Flux<User> findUsersByEmailOrName(String email, String name) {
     User user = new User();
-    if (email != null && !email.equals("")) user.setEmail(email.trim());
-    if (name != null && !name.equals("")) user.setName(name.trim());
+    if (email != null && !email.equals("")) user.setEmail(TextSanitizer.sanitize(email));
+    if (name != null && !name.equals("")) user.setName(TextSanitizer.sanitize(name));
     else user.setName("DidThisBecauseofAnErrorInTheLibrary.TherewontbeanynameLikeThis");
     ExampleMatcher matcher =
         matchingAny()

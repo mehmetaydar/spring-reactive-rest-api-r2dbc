@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
  * 'Flux'
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/users")
 public class UserController {
   @Autowired private UserService userService;
 
