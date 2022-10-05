@@ -31,7 +31,7 @@ import reactor.test.StepVerifier;
 @AutoConfigureWebTestClient
 @ActiveProfiles("test")
 @Slf4j
-public class UserControllerTest {
+public class ApiTest {
 
   @Autowired private WebTestClient webTestClient;
 
@@ -41,9 +41,21 @@ public class UserControllerTest {
 
   private List<User> getData() {
     return Arrays.asList(
-        new User(null, "Suman Das", 30, 10000, "sumandas@company.com"),
-        new User(null, "Arjun Das", 5, 1000, "arjundas@company.com"),
-        new User(null, "Saurabh Ganguly", 40, 1000000, "sganguly@company.com"));
+        new User(null, "Jordan Sun", 30, 10000, "jordansun@company.com"),
+        new User(null, "Satoshi Nakamoto", 5, 1000, "satoshi@company.com"),
+        new User(null, "Vitalik Bullet", 40, 1000000, "vitalik@company.com"),
+        new User(null, "David Cameron", 20, 10000, "dcameron@company.com"),
+        new User(null, "Albert Einstein", 55, 1000, "albeins@company.com"),
+        new User(null, "Martin Mangan", 35, 1000000, "martman@company.com"),
+        new User(null, "Felipe Melo", 40, 10000, "felipmelo@company.com"),
+        new User(null, "Lionel Messi", 35, 1000, "liomes@company.com"),
+        new User(null, "Christiano Ronaldo", 36, 1000000, "chrisr@company.com"),
+        new User(null, "Wayne Rooney", 40, 10000, "rooney@company.com"),
+        new User(null, "Diego Maradona", 50, 1000, "maradona@company.com"),
+        new User(null, "Zehra Gunes", 25, 1000000, "zgunes@company.com"),
+        new User(null, "Lebron James", 34, 10000, "ljames@company.com"),
+        new User(null, "Michael Jordan", 60, 1000, "mjordan@company.com"),
+        new User(null, "Bruma Randy", 45, 1000000, "brumarand@company.com"));
   }
 
   @BeforeEach
@@ -78,7 +90,7 @@ public class UserControllerTest {
         .expectHeader()
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .expectBodyList(User.class)
-        .hasSize(3)
+        .hasSize(15)
         .consumeWith(
             user -> {
               List<User> users = user.getResponseBody();
@@ -102,7 +114,7 @@ public class UserControllerTest {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .returnResult(User.class)
             .getResponseBody();
-    StepVerifier.create(userFlux.log("Receiving values !!!")).expectNextCount(3).verifyComplete();
+    StepVerifier.create(userFlux.log("Receiving values !!!")).expectNextCount(15).verifyComplete();
   }
 
   @Test
@@ -114,14 +126,14 @@ public class UserControllerTest {
         .expectStatus()
         .isOk()
         .expectBody()
-        .jsonPath("$.name", "Suman Das");
+        .jsonPath("$.name", "Jordan Sun");
   }
 
   @Test
   public void getUserById_NotFound() {
     webTestClient
         .get()
-        .uri("/users".concat("/{userId}"), "6")
+        .uri("/users".concat("/{userId}"), "6000")
         .exchange()
         .expectStatus()
         .isNotFound();
@@ -129,7 +141,7 @@ public class UserControllerTest {
 
   @Test
   public void createUser() {
-    User user = new User(null, "Rahul Dravid", 45, 5555555, "rdravid@company.com");
+    User user = new User(null, "Aras Cruise", 45, 555555, "arascruise@company.com");
     webTestClient
         .post()
         .uri("/users")
@@ -142,9 +154,9 @@ public class UserControllerTest {
         .jsonPath("$.id")
         .isNotEmpty()
         .jsonPath("$.name")
-        .isEqualTo("Rahul Dravid")
+        .isEqualTo("Aras Cruise")
         .jsonPath("$.email")
-        .isEqualTo("rdravid@company.com");
+        .isEqualTo("arascruise@company.com");
   }
 
   @Test
@@ -202,7 +214,7 @@ public class UserControllerTest {
 
   @Test
   public void updateUserEmail() {
-    String newEmail = "modified_sumandas@company.com";
+    String newEmail = "modified_jordansun@company.com";
     int userId = 1;
     User user = userRepository.findById(userId).block();
     user.setEmail(newEmail);
@@ -242,7 +254,7 @@ public class UserControllerTest {
 
   @Test
   public void updateUser_duplicateEmail() {
-    String newEmail = "sganguly@company.com";
+    String newEmail = "jordansun@company.com";
     int userId = 1;
     User user = userRepository.findById(userId).block();
     user.setEmail(newEmail);
@@ -260,15 +272,79 @@ public class UserControllerTest {
   @Test
   public void updateUser_notFound() {
     double newsalary = 12345;
-    User user = new User(null, "Suman Das", 31, newsalary, "sumandas@company.com");
+    User user = new User(null, "Jordan Sun", 31, newsalary, "jordansun@company.com");
     webTestClient
         .put()
-        .uri("/users".concat("/{userId}"), "6")
+        .uri("/users".concat("/{userId}"), "6500")
         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
         .body(Mono.just(user), User.class)
         .exchange()
         .expectStatus()
         .isBadRequest();
+  }
+
+  @Test
+  public void testPaginationAndSort() {
+    webTestClient
+        .get()
+        .uri("/users/all?page=1&size=5&sort=id;ASC,name;DESC")
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectHeader()
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .expectBody()
+        .jsonPath("$.content[0].id")
+        .isEqualTo(6)
+        .jsonPath("$.content[4].id")
+        .isEqualTo(10)
+        .jsonPath("$.totalPages")
+        .isEqualTo(3)
+        .jsonPath("$.numberOfElements")
+        .isEqualTo(5)
+        .jsonPath("$.totalElements")
+        .isEqualTo(15)
+        .jsonPath("$.sort.sorted")
+        .isEqualTo(true);
+  }
+
+  @Test
+  public void searchByEmailExactMatch() {
+    webTestClient
+        .get()
+        .uri("/users/search?email=Satoshi@company.com")
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("$.[0].name", "Satoshi Nakamoto");
+  }
+
+  @Test
+  public void searchByNamePrefix() {
+    webTestClient
+        .get()
+        .uri("/users/search?name=satosh")
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("$.[0].email", "satoshi@company.com");
+  }
+
+  @Test
+  public void searchByEmailOrName() {
+    webTestClient
+        .get()
+        .uri("/users/search?email=Satoshi@company.com&name=Lebr")
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBody()
+        .jsonPath("$.[0].name")
+        .isEqualTo("Satoshi Nakamoto")
+        .jsonPath("$.[1].name")
+        .isEqualTo("Lebron James");
   }
 }

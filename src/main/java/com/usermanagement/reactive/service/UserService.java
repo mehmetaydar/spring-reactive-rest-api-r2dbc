@@ -12,7 +12,6 @@ import com.usermanagement.reactive.repository.UserRepository;
 import com.usermanagement.reactive.repository.UserSearchRepository;
 import java.util.List;
 import java.util.function.BiFunction;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
