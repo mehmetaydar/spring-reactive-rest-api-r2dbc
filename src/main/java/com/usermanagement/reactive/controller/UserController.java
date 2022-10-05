@@ -94,7 +94,7 @@ public class UserController {
   }
 
   @GetMapping("/age/{age}")
-  public Flux<User> getUsersByAge(@PathVariable int age) {
+  public Flux<User> getUsersByAgeGreater(@PathVariable int age) {
     return userService.findUsersByAge(age);
   }
 
