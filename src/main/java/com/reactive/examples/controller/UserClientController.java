@@ -9,34 +9,27 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * The controller for the Rest Api Client implementation
- */
-
+/** The controller for the Rest Api Client implementation */
 @RestController
 @RequestMapping("/client/users")
 public class UserClientController {
 
-    @Autowired
-    private UserClient userClient;
+  @Autowired private UserClient userClient;
 
-    @GetMapping("/{userId}")
-    public Mono<ResponseEntity<User>> getUserById(@PathVariable String userId){
-        Mono<User> user = userClient.getUser(userId);
-        return user.map( u -> ResponseEntity.ok(u))
-                .defaultIfEmpty(ResponseEntity.notFound().build());
-    }
+  @GetMapping("/{userId}")
+  public Mono<ResponseEntity<User>> getUserById(@PathVariable String userId) {
+    Mono<User> user = userClient.getUser(userId);
+    return user.map(u -> ResponseEntity.ok(u)).defaultIfEmpty(ResponseEntity.notFound().build());
+  }
 
-    @GetMapping
-    public Flux<User> getAllUsers(){
-        return userClient.getAllUsers();
-    }
+  @GetMapping
+  public Flux<User> getAllUsers() {
+    return userClient.getAllUsers();
+  }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<User> create(@RequestBody User user){
-        return userClient.createUser(user);
-    }
-
-
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public Mono<User> create(@RequestBody User user) {
+    return userClient.createUser(user);
+  }
 }

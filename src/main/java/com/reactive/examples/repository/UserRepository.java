@@ -6,14 +6,12 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 
 /**
- * Java Spring JPA UserRepository
- * Serves as a data repository that supports non-blocking reactive streams for the users table
- * Please notice the usage of 'Flux' here as part of the non-blocking operations
- * CRUD operations (create, update, delete) are supported automatically as it extends ReactiveCrudRepository
- * Additional customer queries are added
+ * Java Spring JPA UserRepository Serves as a data repository that supports non-blocking reactive
+ * streams for the users table Please notice the usage of 'Flux' here as part of the non-blocking
+ * operations CRUD operations (create, update, delete) are supported automatically as it extends
+ * ReactiveCrudRepository Additional customer queries are added
  */
-
-public interface UserRepository extends ReactiveCrudRepository<User,Integer> {
-    @Query("select * from users where age >= $1")
-    Flux<User> findByAge(int age);
+public interface UserRepository extends ReactiveCrudRepository<User, Integer> {
+  @Query("select * from users where age >= $1")
+  Flux<User> findByAge(int age);
 }
