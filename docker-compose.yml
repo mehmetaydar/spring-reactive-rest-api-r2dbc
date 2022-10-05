@@ -14,7 +14,7 @@ services:
 #  api:
 #    build: .
     # TODO: version your project here
-#    image: seatgeek.com/user-management:<version>
+#    image: sgeek.com/user-management:<version>
 #    ports:
       # TODO: Map your ports here
 #      - "8080:8080"
