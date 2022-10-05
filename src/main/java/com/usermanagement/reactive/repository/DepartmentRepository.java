@@ -1,6 +1,6 @@
-package com.reactive.examples.repository;
+package com.usermanagement.reactive.repository;
 
-import com.reactive.examples.model.Department;
+import com.usermanagement.reactive.model.Department;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
 

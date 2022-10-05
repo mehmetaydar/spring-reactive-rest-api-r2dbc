@@ -1,6 +1,6 @@
-package com.reactive.examples.repository;
+package com.usermanagement.reactive.repository;
 
-import com.reactive.examples.model.User;
+import com.usermanagement.reactive.model.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 import org.springframework.stereotype.Repository;

@@ -1,6 +1,6 @@
-package com.reactive.examples.client;
+package com.usermanagement.reactive.client;
 
-import com.reactive.examples.model.User;
+import com.usermanagement.reactive.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
-package com.reactive.examples.controller;
+package com.usermanagement.reactive.controller;
 
-import com.reactive.examples.client.UserClient;
-import com.reactive.examples.model.User;
+import com.usermanagement.reactive.client.UserClient;
+import com.usermanagement.reactive.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

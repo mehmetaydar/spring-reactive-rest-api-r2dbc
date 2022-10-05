@@ -1,17 +1,18 @@
-package com.reactive.examples.service;
+package com.usermanagement.reactive.service;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.startsWith;
 import static org.springframework.data.domain.ExampleMatcher.matchingAny;
 
-import com.reactive.examples.dto.UserDepartmentDTO;
-import com.reactive.examples.model.Department;
-import com.reactive.examples.model.User;
-import com.reactive.examples.repository.DepartmentRepository;
-import com.reactive.examples.repository.UserPaginationRepository;
-import com.reactive.examples.repository.UserRepository;
-import com.reactive.examples.repository.UserSearchRepository;
+import com.usermanagement.reactive.dto.UserDepartmentDTO;
+import com.usermanagement.reactive.model.Department;
+import com.usermanagement.reactive.model.User;
+import com.usermanagement.reactive.repository.DepartmentRepository;
+import com.usermanagement.reactive.repository.UserPaginationRepository;
+import com.usermanagement.reactive.repository.UserRepository;
+import com.usermanagement.reactive.repository.UserSearchRepository;
 import java.util.List;
 import java.util.function.BiFunction;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;

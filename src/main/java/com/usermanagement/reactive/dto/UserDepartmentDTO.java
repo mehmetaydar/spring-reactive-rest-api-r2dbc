@@ -1,4 +1,4 @@
-package com.reactive.examples.dto;
+package com.usermanagement.reactive.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

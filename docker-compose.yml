@@ -10,19 +10,22 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - db:/var/lib/postgresql/data
-#  api:
-#    build: .
-    # TODO: version your project here
-#    image: sgeek.com/user-management:<version>
-#    ports:
-      # TODO: Map your ports here
-#      - "8080:8080"
-    # volumes:
-    # environment:
-    # depends_on:
-    # links:
+      - db_data:/var/lib/postgresql/data
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sgeek.com/user-management:0.1
+    ports:
+      - "8080:8080"
+    #volumes:
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - APP_DBHOST=db
+    depends_on:
+      - db
+    #links:
   # TODO: Add any other dependencies you need to run the service
 volumes:
-   db:
+  db_data:
      driver: local

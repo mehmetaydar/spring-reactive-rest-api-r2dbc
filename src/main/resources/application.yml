@@ -1,11 +1,14 @@
 spring:
   profiles:
     active: dev
+
+app.dbhost: localhost
+
 ---
 spring:
   profiles: dev
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/test
+    url: r2dbc:postgresql://${app.dbhost}:5432/test
     username: postgres
     password: postgres
 logging:
@@ -26,7 +29,7 @@ server.error.include-binding-errors: always
 spring:
   profiles: prod
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/test
+    url: r2dbc:postgresql://${app.dbhost}:5432/test
     username: postgres
     password: postgres
   logging:

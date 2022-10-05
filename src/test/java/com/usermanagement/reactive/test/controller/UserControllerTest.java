@@ -1,9 +1,9 @@
-package com.reactive.examples.test.controller;
+package com.usermanagement.reactive.test.controller;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.reactive.examples.model.User;
-import com.reactive.examples.repository.UserRepository;
+import com.usermanagement.reactive.model.User;
+import com.usermanagement.reactive.repository.UserRepository;
 import java.util.Arrays;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

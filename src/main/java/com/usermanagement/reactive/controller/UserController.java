@@ -1,12 +1,13 @@
-package com.reactive.examples.controller;
+package com.usermanagement.reactive.controller;
 
-import com.reactive.examples.dto.UserDepartmentDTO;
-import com.reactive.examples.model.User;
-import com.reactive.examples.service.UserService;
+import com.usermanagement.reactive.dto.UserDepartmentDTO;
+import com.usermanagement.reactive.model.User;
+import com.usermanagement.reactive.service.UserService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

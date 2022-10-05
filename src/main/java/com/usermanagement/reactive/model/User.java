@@ -1,4 +1,4 @@
-package com.reactive.examples.model;
+package com.usermanagement.reactive.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
