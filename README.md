@@ -138,10 +138,15 @@ To run the tests either use an IDE or maven commands. Check https://mkyong.com/m
 
 ## How to monitor the application
 
-The terminal console logs or docker container logs should give plenty of information for monitoring. 
+Spring Boot Actuator is enabled. So below GET request will tell you about the health of the API:
+
+http://localhost:8080/actuator/health
+
+In addition,  the terminal console logs or docker container logs should give plenty of information for monitoring. 
 Of course this wouldn't be enough if this was a production system. 
 Ideally if this was a production system:
 - I would have packaged the application in Dockerfile with a monitoring agent, such as Datadog Java Agent.
+- Add Kubernetes readiness and healthiness probe
 - I would have created dashboards, metrics, monitors and necessary alarms using something like ELK stack, Datadog or Grafana. 
 
 ## Production consideration
