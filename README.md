@@ -142,11 +142,23 @@ Spring Boot Actuator is enabled. So below GET request will tell you about the he
 
 http://localhost:8080/actuator/health
 
+Check what other actuator endpoints available through:
+
+http://localhost:8080/actuator
+
+Also, Kubernetes health probes are enabled. So, when the API is deployed to Kubernetes, `readiness` and `liveness` checks are useful:
+
+http://localhost:8080/actuator/health/readiness
+
+http://localhost:8080/actuator/health/liveness
+
+Note that, on production, only the `/actuator/health/*` endpoint is enabled.
+
 In addition,  the terminal console logs or docker container logs should give plenty of information for monitoring. 
 Of course this wouldn't be enough if this was a production system. 
 Ideally if this was a production system:
 - I would have packaged the application in Dockerfile with a monitoring agent, such as Datadog Java Agent.
-- Add Kubernetes readiness and healthiness probe
+- Customise Kubernetes readiness and healthiness probes
 - I would have created dashboards, metrics, monitors and necessary alarms using something like ELK stack, Datadog or Grafana. 
 
 ## Production consideration

@@ -4,6 +4,12 @@ spring:
 
 app.dbhost: localhost
 
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
 ---
 spring:
   profiles: dev
@@ -16,6 +22,11 @@ logging:
     org.springframework.data.r2dbc: Debug
 server.error.include-message: always
 server.error.include-binding-errors: always
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 ---
 spring:
   profiles: test
@@ -37,3 +48,8 @@ spring:
       org.springframework.data.r2dbc: Debug
 server.error.include-message: always
 server.error.include-binding-errors: always
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
